@@ -1,0 +1,146 @@
+body {
+    /*font-family: GillSans, Calibri, Trebuchet, sans-serif;*/
+    font-family: 'Varela', sans-serif;
+  }
+#map {
+    height: 400px;
+    width: 100%;
+}
+.row {
+    margin-bottom: 0;
+}
+header .brand-logo{
+    font-family: 'Amita', cursive;
+    font-size:3.1rem;
+    padding-left:10px;
+    line-height:4.1rem;
+}
+#headerSearch .input-field{
+    border-bottom: white;
+}
+.nav-wrapper {
+    margin-left: -.75rem;
+    margin-right: -.75rem;
+}
+input#city{
+    border-bottom: white 1px solid;
+}
+input#restaurant{
+    border-bottom: white 1px solid;
+}
+.select-wrapper input.select-dropdown {
+    color: white;
+    border-bottom: white 1px solid;
+}
+#txtEmailLogin, #txtPasswordLogin  { font-size:0.5rem;
+    border-bottom: white 1px solid;
+    color: white;   
+}
+#txtForgotEmail, #pwForm {
+    border-bottom: white 1px solid;
+    color: white; 
+}
+#modal1, #modal2, #modalTabs {
+    color: white;
+     background-color: #aed581;
+}
+.modal-footer{
+    color: #66bb6a;
+}
+#txtForgotEmail {
+    color: white;
+}
+
+#modalBtn {font-size:.7rem;}
+#modalBtn2 {font-size:.7rem;}
+
+#hiUser{ padding:4px;
+    font-size:1.1rem;
+text-align: center;}
+
+.waves-effect.waves-blue{
+    /* The alpha value allows the text and background color
+    of the button to still show through. */
+     background-color: rgba(59, 38, 175, 0.65);
+   }
+
+.cuisineOptionBox{
+    font-size:16px;
+    color:#26a69a;
+    display:block;
+    line-height:22px;
+    padding:14px 16px;
+}
+.searchDiv{
+    margin-top:20px;
+}
+
+div#photo.row{
+    background-color:#ffab80;
+}
+
+.hearthold { background-color: pink; 
+    margin-left: auto;
+    margin-right: auto;
+}
+div#listingDetails.row{
+    padding-top: 15px;
+    min-height:150px;
+    background-color:#ffab80;
+    text-align: center;
+}
+#restaurants-big{
+    min-height:50px;
+    font-size: 1.5em;
+}
+div#notes.row{
+    min-height:150px;
+    background-color:#fff;
+    border-top:1px solid grey;
+}
+
+div#displayNotes.row{
+    min-height:150px;
+    background-color:#fff;
+    border-top:1px solid grey;
+}
+
+
+div#notesOz.row{
+    min-height:150px;
+    background-color:#fff;
+    border-top:1px solid grey;
+}
+
+#modalBtnTab {
+    font-size: 1.5em;
+    color: #00838f;
+    margin-top: 10px;
+    background-color: #00acc1;
+}
+.tabs{
+    background-color:#aed581;
+}
+.tabs .tab a{
+    font-size:10px;
+}
+.tabs :hover{
+    background-color:#9ccc66;
+}
+#modalBtnNotes{
+    margin-top: -25px;
+}
+#topLoginBlock {
+    width: 300px;
+}
+#txtEmail, #txtPassword  { 
+    background-color:#aed581;
+    font-size:1rem;
+    border-bottom: white 1px solid;
+    color: white;   
+}
+.btn {
+    padding-right: 8px;
+    padding-left: 8px;
+    background-color:#689f38;
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>My Veggie Eats</title>
+    <meta charset="UTF-8">
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- STYLESHEETS  -->
+
+    <!-- Google Fonts for Materialize/CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amita" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela" rel="stylesheet">
+
+    <!-- Materialize: Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- Browser Reset -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+
+    <!-- Site Style Overrides -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+
+</head>
+
+<body>
+
+    <!-- Top of page container-->
+    <div class="container">
+
+        <!-- Header contains title and log in/out button-->
+        <header>
+            <div class="row light-green darken-1">
+                <div class="col s12 m2">
+                    <img src="./assets/images/heartfoodT.gif" width="80px" height="66">
+                </div>
+                <div class="col s12 m7">
+                    <a href="#" class="brand-logo white-text">My Veggie Eats</a><!-- Site Title -->
+                </div>
+                <div class="col s12 m3">
+                    <ul class="right">
+                        <li id="hiUser"></li>
+
+                        <li>
+                            <a id="modalLoginBtn" class="waves-effect waves-light btn modal-trigger" href="#modalLogin">Log In/Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search boxes -->
+        <div class="row light-green darken-1">
+
+            <form id="headerSearch">
+
+                <div class="col s3 searchDiv">
+                    <!--Post user name here once logged in-->
+                    <span id="signedInAs"></span>
+
+                    <!--Search button -->
+                    <button type="submit" id="searchIt" class="btn-floating btn-small waves-effect waves-light right red" value="Search">
+                        <i class="material-icons prefix">search</i>
+                    </button>
+                </div>
+
+                <!-- Text box for city search-->
+                <div class="col s12 m3 l3 input-field">
+                    <input id="city" type="text">
+                    <label for="city" class="white-text">City to Search</label>
+                </div>
+
+                <!-- Drop down list of options for cuisine search-->
+                <div id="cuisineSearch" class="input-field col s12 m3 ">
+                    <select id="drop-down">
+                        <option class="white-text" value="" selected>Add Cuisine</option>
+                    </select>
+                </div>
+
+                <!-- Text box for restaurant-specific search-->
+                <div class="col s12 m3 l3 input-field">
+                    <input id="restaurant" type="text">
+                    <label for="restaurant" class="white-text">Restaurant Name</label>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- End of top container-->
+
+    <!-- Content container-->
+    <div class="container">
+        <div class="row">
+
+            <!-- Left column:  Google Map/tabs -->
+            <div id="googleAPI" class="col s12 m8">
+
+                <!-- Map Tabs -->
+                <div class="row light-green lighten-2">
+                    <div class="col s3">
+                        <!-- Add Tab Modal Trigger -->
+                        <a id="modalBtnTab" class="waves-effect waves-light btn modal-trigger" href="#modalTabs">+ Tab</a>
+                    </div>
+                    <!-- Map Tab MODAL-->
+                    <div id="modalTabs" class="modal light-green lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+                        <div class="modal-content">
+                            <h4>Add/Update A Map Tab</h4>
+                            <div class="row">
+                                <form id="mapTabs" class="col s12">
+
+                                    <!-- Tab  Info -->
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input id="tabName" type="text">
+                                            <label for="tabName">Tab Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="tabStreet" type="text">
+                                            <label for="tabStreet">Street Address</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="tabCity" type="text">
+                                            <label for="tabCity">City</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="tabZip" type="text">
+                                            <label for="tabZip">Zip</label>
+                                        </div>
+                                    </div>
+                                    <!-- end of tab  info -->
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="addTab">Add Tab</a>
+                        </div>
+                    </div>
+
+                    <!-- Custom user map tabs-->
+                    <div class="col s9">    
+                        <ul class="tabs">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Google Map -->
+                <div class="row">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+            <!-- Right column:  Zomato restaurants/reviews/notes -->
+            <div id="zomatoAPI" class="col s12 m4">
+
+                <!-- Detail listing of either first in list or user choice goes here -->
+                <div class="row" id="photo">
+                    <span id="restaurant-photo"></span>
+                </div>
+                <div class="row" id="listingDetails">
+                    <span id="restaurants-big">Pick an avocado off the map for restaurant details</span>
+                    <span id="restaurant-info"></span>
+                </div>
+
+                <!-- User Notes from Firebase -->
+
+                <!-- oz -->
+                <div class="row" id="notesOz">
+                    <span id="userNotes"><form>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Notes</label>
+                            <textarea class="form-control" id="thisIsNote" rows="3" ></textarea>
+                        </div>
+                    </form>
+                    <button type="button" class="btn btn-success" id="notesToBeAdded">Add Note</button>
+                    <button type="button" class="btn btn-success" id="notesToBeDeleted">Clear Notes</button></span>
+                </div>
+
+                
+                
+            </div>
+        </div>
+    </div>
+    <!-- End of login component -->
+
+    <div id="modalLogin" class="modal light-green lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+        <div class="modal-content">
+            <h4>Log In/Out </h4>
+            <div class="row">
+
+                <form id="loginForm">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="txtName" type="name" class="validate">(New User Only)
+                            <label for="email" class="white-text"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="txtEmail" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="txtPassword" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                    <button class="btn waves-effect waves-light modal-close" id="btnLogin" name="action">Login</button>
+                    <button class="btn waves-effect waves-light modal-close" id="btnSignUp" name="action">Sign Up</button>
+                    <button class="btn waves-effect waves-light modal-close" id="btnSignOut" name="action">Sign Out</button>
+                </form>
+            </div>
+        </div>
+        <!-- End of login component -->
+
+    </div>
+    <!-- End of content container-->
+
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <!-- MATERIALIZE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+    <!-- Site Javascript Logic -->
+    <script src="./assets/javascript/logic.js"></script>
+
+    <script src="./assets/javascript/firebase-KEEP.js"></script>
+    <script src="./assets/javascript/googleApi.js"></script>
+
+    <!-- script below is from kris -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwhOakfPVFjGYSWZ9KwaM8EH9lqw5cY1A&allback=initMap"></script>
+
+</body>
+
+</html>

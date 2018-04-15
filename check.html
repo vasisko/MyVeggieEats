@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>My Veggie Eats</title>
+    <meta charset="UTF-8">
+    <meta name="viewpot" content="width=device-width, initial-scale=1.0">
+    
+    <!-- STYLESHEETS  -->
+
+    <!-- Google Fonts for Materialize/CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amita" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela" rel="stylesheet">
+
+    <!-- Materialize: Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    
+    <!-- Browser Reset -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+
+    <!-- Site Style Overrides -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+ 
+</head>
+
+<body>
+
+    <!-- Top of page -->
+    <div class="container">
+        
+        <header>
+            <div class="row light-green darken-1">
+                <div class="col s12 m1">
+                   <img src="heartfoodT.gif" width="80px" height="66">
+                </div>
+                <div class="col s12 m7">
+                   <a href="#" class="brand-logo white-text">My Veggie Eats</a>
+                </div>
+
+                <div class="col s12 m4">
+
+                    <div class="row">
+                
+                    <!-- Login Here msg for user - replace with hello msg once signed in-->
+                    
+                    
+                    <form id="loginForm">
+                                
+                      <div class="row">
+
+                        <div class="input-field col s4">
+                            <input id="txtEmail" type="name" class="validate">
+                            <label for="email">Email</label>
+                         </div>
+                                        
+                                        
+                         <div class="input-field col s4">
+                            <input id="txtPassword" type="name" class="validate">
+                              <label for="txtPassword">Password</label>
+                         </div>
+                       
+                                     
+                        <div class="col s4">
+                            <button class="btn-small waves-effect waves-light light-green" id="btnLogin" name="action">Login
+                            
+                            </button>
+                        </div>
+                    
+                    </div>
+
+                    <div class="row">
+                      <div class="col s6" >
+                    <!-- Existing User:Login Modal Trigger -->
+                    <a id="modalBtn" class="modal-trigger white-text" href="#modal1">Get Password</a>
+                    </div>
+
+                        <!-- Existing User:LOGIN MODAL-->
+                        <div id="modal1" class="modal grey lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+                        <div class="modal-content">
+                            <h4>Forget Your Password ?</h4><br><br>
+                            <div class="row">
+                                <form id="pwForm" class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s6">We'll send you an email to reset that.
+                                            <input id="txtEmail" type="email" class="validate">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                   
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="btnPassword" name="action">Reset my password</a>
+                        </div>
+                        </div>
+
+
+
+                    <div class="col s6">
+                        <!-- New User:Login Modal Trigger -->
+                        <a id="modalBtn2" class="modal-trigger  white-text" href="#modal2">Register</a>
+                    </div>
+    
+                        <!-- New User:LOGIN MODAL-->
+                        <div id="modal2" class="modal grey lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+                            <div class="modal-content">
+                                <h4>Create Account</h4>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="first_name" type="text" class="validate">
+                                                <label for="first_name">First Name</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="last_name" type="text" class="validate">
+                                                <label for="last_name">Last Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="password" type="password" class="validate">
+                                                <label for="password">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="email" type="email" class="validate">
+                                                <label for="email">Email</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="btnSignUp">Sign Up!</a>
+                            </div>
+                        </div>
+                     
+
+           
+                </div>
+            </div>
+       </header> 
+       
+
+        <!-- Search boxes -->
+        <div class="row light-green darken-1">
+            
+          <form id="headerSearch">
+
+            
+
+            <div class="col s6 m5 input-field">
+                    <input id="city" type="text">
+                    <label for="city" class="white-text right">Enter City to Search</label>
+            </div>
+            
+            <div class="col s3 m4 searchDiv">
+                    <span id="signedInAs"></span>
+                    <button type="submit" id="searchIt" class ="btn-floating btn-small waves-effect waves-light  red" value="Search"><i class="material-icons prefix">search</i> </button> 
+                </div>
+
+            <div class="col s6 m2">
+                    <p id="hiUser">Welcome User Name</p>
+            </div>
+            <!-- Phase II:  Additional Search Features 
+                
+            1. Cuisine Search to add non-veg restaurants
+            <div id="cuisineSearch" class="input-field col s12 m3 ">
+                <select id="drop-down" >
+                    <option class="white-text" value="" selected >Add Cuisine</option>-->
+                    <!-- <option value="1">defaut 1</option>
+                    <option value="2">defaut 2</option>
+                    <option value="3">defaut 3</option> -->
+
+                <!--</select> 
+            </div>-->
+
+            <!--2. Restaurant Name - search for user input rest name -->
+            <div class="col s12 m3 l3 input-field">
+                <input id="restaurant" type="text">
+                <label for="restaurant"class="white-text">Restaurant Name</label>
+            </div>
+       
+            
+            
+          </form>
+        </div>
+
+    
+    <!-- End of top -->
+
+    <!-- Content -->
+    
+
+        <div class="row">
+
+
+            <!-- Left column:  Google Map/tabs -->
+            <div id="googleAPI" class="col s12 m6 l8">
+
+                <!-- Map Tabs -->
+                <div class="row light-green lighten-2">
+                    <div class="col s3">
+                        <!-- Add Tab Modal Trigger -->
+                        <a id="modalBtnTab" class="waves-effect waves-light btn modal-trigger"  href="#modalTabs">+ Tab</a>
+                    </div>
+                        <!-- Map Tab MODAL-->
+                        <div id="modalTabs" class="modal grey lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+                            <div class="modal-content">
+                                <h4>Add/Update A Map Tab</h4>
+                            <div class="row">
+                                <form id="mapTabs" class="col s12">
+                                <!-- Select Tab 1, 2, or 3-->
+                                <!-- <div class="row">
+                                    <input id="tab1" name="tabNumber" class="with-gap"  type="radio" checked />
+                                    <label for="tab1">Tab 1</label>
+                                    <input id="tab2" name="tabNumber" class="with-gap"  type="radio" checked />
+                                    <label for="tab2">Tab 2</label>
+                                    <input id="tab3" name="tabNumber" class="with-gap"  type="radio" checked />
+                                    <label for="tab3">Tab 3</label>   
+                                </div> -->
+                                <!-- Tab  Info -->
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="tabName" type="text" >
+                                        <label for="tabName">Tab Name</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="tabStreet" type="text" >
+                                        <label for="tabStreet">Street Address</label>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="tabCity" type="text" >
+                                        <label for="tabCity">City</label>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="tabZip" type="text" >
+                                        <label for="tabZip">Zip</label>
+                                    </div>
+                                </div> 
+                                <!-- end of tab  info -->
+
+                                 </form>
+                             </div>
+                            </div>
+                        <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="addTab">Add Tab</a>
+                         </div>
+                    </div>
+
+
+                    <div class="col s9">    
+                            <!-- 3 Tabs for customizing -->
+                            <ul class="tabs">
+
+                                <li class="tab col s3"><a  class="active" href="test1" id="tab1Name home"><i class="material-icons prefix small red-text ">favorite</i></a></li>
+
+                            </ul>
+                        </div>          
+                    </div>
+                    
+
+
+
+
+
+
+                <!-- Map -->
+                <div class="row">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+
+            <!-- Right column:  Zomato restaurants/reviews/notes -->
+            <div id="zomatoAPI" class="col s12 m6 l4">
+
+                <!-- Detail listing of either first in list or user choice goes here -->
+                <div class="row" id="photo">
+                        <span id="restaurant-photo">
+                            <img src="heartfood.jpg" width="160px" height="132px">
+                        </span>
+                </div>
+                <div class="row" id="listingDetails">
+                        <span id="restaurants-big">Pick an avocado off the map for restaurant details</span>
+                        <span id="restaurant-info"></span>
+                </div>
+
+                
+            <!-- User Notes from Firebase -->
+            <div class="row pink" id="notes">
+                <span id="userNotes">Chosen Restaurant: Firebase User Notes</span>
+            </div>
+
+            <!-- MODAL to add/edit/delete notes -->
+            <div class="row" id="userNotes">
+                 <div class="col s12">
+                    <!-- Add Tab Modal Trigger -->
+                    <a id="modalBtnNotes" class ="btn-floating btn-small waves-effect waves-light right red"  href="#modalNotes" value="editNotes"><i class="material-icons prefix">edit</i></a>
+                </div>
+                 <!-- Map Tab MODAL-->
+                <div id="modalNotes" class="modal grey lighten-2" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+                <div class="modal-content">
+                    <h4>My Dining Notes: </h4>
+                    <div class="row">
+                        <form id="notePad" class="col s12">
+            
+                            <div class="input-field col s12">
+                                <textarea id="fbnotes" class="materialize-textarea">skdfsdfsdf  existing fb notes go here- dynamically fill</textarea>
+                            </div>
+                                
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editNotes">Submit</a>
+                                     </div>
+                                </div>
+
+
+
+                </div>
+
+
+                
+            </div>
+        
+        </div>
+
+        <!--Firebase Test lab 
+        <div class="row">
+            <form class="col s12" id="loginForm">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtName" type="name" class="validate">
+                        <label for="email">Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtEmail" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtPassword" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" id="btnLogin" name="action">Login
+                    <i class="material-icons right">send</i>
+                </button>
+                <button class="btn waves-effect waves-light" id="btnSignUp"  name="action">Sign Up
+                    <i class="material-icons right">create</i>
+                </button>
+                <button class="btn waves-effect waves-light" id="btnSignOut"  name="action">Sign Out
+                    <i class="material-icons right">directions_run</i>
+                </button>
+            </form>
+        </div>-->
+
+
+        <!-- End of content -->
+
+    </div>
+
+<!-- JQUERY --> 
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+<!-- MATERIALIZE -->    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    
+
+<!-- Site Javascript Logic -->   
+<script src="./assets/javascript/logic.js"></script>
+
+<script src="./assets/javascript/firebase.js"></script>
+<script src="./assets/javascript/googleApi.js"></script>
+
+<!-- script below is from ozair -->
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHDpeaH0pq2ESqRK_mZLUkzJ6hUTdQ1TQ&callback=initMap">
+</script> -->
+
+<!-- script below is from kris -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwhOakfPVFjGYSWZ9KwaM8EH9lqw5cY1A&allback=initMap"></script>
+
+</body>
+
+</html>
