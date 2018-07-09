@@ -1,5 +1,6 @@
 # MyVeggieEats
 ### by teamAwesome 
+A personalized restaurant finder for vegetarians providing maps, restaurant information, and a place for user notes.
 
 ## Instructions
 
