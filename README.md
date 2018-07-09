@@ -1,7 +1,5 @@
 # MyVeggieEats
-### by teamAwesome
-
-## My Veggie Eats... 
+### by teamAwesome 
 
 ## Instructions
 
